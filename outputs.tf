@@ -16,6 +16,12 @@ output "public_ips" {
   value       = ["${azurerm_public_ip.instance_public_ip.*.fqdn}"]
 }
 
+# Instance NIC IDs
+output "instance_nic_ids" {
+  description = "List of instance nic ids created by this module"
+  value       = "${azurerm_network_interface.instance_nic.*.id}"
+}
+
 # Returns the ID of the prereq script
 output "prereq_id" {
   description = "Prereq id used for dependency"

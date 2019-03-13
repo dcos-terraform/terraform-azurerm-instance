@@ -93,15 +93,15 @@ variable "hostname_format" {
 # Public backend address pool
 variable "public_backend_address_pool" {
   description = "Public backend address pool"
-  type        = "list"
-  default     = []
+  type        = "string"
+  default     = ""
 }
 
 # Private backend address pool
 variable "private_backend_address_pool" {
   description = "Private backend address pool"
-  type        = "list"
-  default     = []
+  type        = "string"
+  default     = ""
 }
 
 # Security Group Id
