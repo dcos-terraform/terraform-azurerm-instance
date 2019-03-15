@@ -91,7 +91,7 @@ resource "azurerm_network_interface" "instance_nic" {
   count                     = "${var.num}"
 
   ip_configuration {
-    name                          = "${format(var.hostname_format, count.index + 1, var.name_prefix)}-ipConfig"
+    name                          = "${element(data.template_file.ip_configuration_name.*.rendered, count.index)}"
     subnet_id                     = "${var.subnet_id}"
     private_ip_address_allocation = "dynamic"
     public_ip_address_id          = "${element(azurerm_public_ip.instance_public_ip.*.id, count.index)}"
@@ -99,6 +99,16 @@ resource "azurerm_network_interface" "instance_nic" {
 
   tags = "${merge(var.tags, map("Name", format(var.hostname_format, (count.index + 1), var.location, var.name_prefix),
                                 "Cluster", var.name_prefix))}"
+}
+
+# Used as a workaround to retrive the ip_configuration name as it is not referenceable from azurerm_network_interface
+data "template_file" "ip_configuration_name" {
+  count    = "${var.num}"
+  template = "$${evaluate}"
+
+  vars {
+    evaluate = "${format(var.hostname_format, count.index + 1, var.name_prefix)}-ipConfig"
+  }
 }
 
 # Master VM Coniguration

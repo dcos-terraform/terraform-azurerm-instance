@@ -90,20 +90,6 @@ variable "hostname_format" {
   default     = "instance-%[1]d-%[2]s"
 }
 
-# Public backend address pool
-variable "public_backend_address_pool" {
-  description = "Public backend address pool"
-  type        = "string"
-  default     = ""
-}
-
-# Private backend address pool
-variable "private_backend_address_pool" {
-  description = "Private backend address pool"
-  type        = "string"
-  default     = ""
-}
-
 # Security Group Id
 variable "network_security_group_id" {
   description = "Security Group Id"

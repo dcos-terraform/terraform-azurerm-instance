@@ -22,6 +22,12 @@ output "instance_nic_ids" {
   value       = "${azurerm_network_interface.instance_nic.*.id}"
 }
 
+# IP configurations name
+output "ip_configuration_names" {
+  description = "List of instance nic ids created by this module"
+  value       = ["${data.template_file.ip_configuration_name.*.rendered}"]
+}
+
 # Returns the ID of the prereq script
 output "prereq_id" {
   description = "Prereq id used for dependency"
