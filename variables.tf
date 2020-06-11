@@ -28,7 +28,7 @@ variable "ssh_private_key_filename" {
 
 variable "image" {
   description = "Source image to boot from"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
@@ -62,7 +62,7 @@ variable "public_ssh_key" {
 
 variable "tags" {
   description = "Add custom tags to all resources"
-  type        = "map"
+  type        = map(string)
   default     = {}
 }
 
@@ -73,13 +73,13 @@ variable "hostname_format" {
 
 variable "public_backend_address_pool" {
   description = "Public backend address pool"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
 variable "private_backend_address_pool" {
   description = "Private backend address pool"
-  type        = "list"
+  type        = list(string)
   default     = []
 }
 
@@ -100,3 +100,4 @@ variable "avset_platform_fault_domain_count" {
   description = "Availability set platform fault domain count, differs from location to location"
   default     = 3
 }
+
