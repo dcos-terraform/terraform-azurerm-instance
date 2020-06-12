@@ -79,7 +79,6 @@ resource "azurerm_public_ip" "instance_public_ip" {
         var.hostname_format,
         count.index + 1,
         var.location,
-        local.cluster_name,
       )
       "Cluster" = local.cluster_name
     },
@@ -119,7 +118,6 @@ resource "azurerm_network_interface" "instance_nic" {
         var.hostname_format,
         count.index + 1,
         var.location,
-        local.cluster_name,
       )
       "Cluster" = local.cluster_name
     },
@@ -183,7 +181,6 @@ resource "azurerm_virtual_machine" "instance" {
         var.hostname_format,
         count.index + 1,
         var.location,
-        local.cluster_name,
       )
       "Cluster" = local.cluster_name
     },
