@@ -44,10 +44,10 @@ module "dcos-tested-oses" {
 }
 
 locals {
-  image_publisher = "${length(var.image) > 0 ? lookup(var.image, "publisher", "") : module.dcos-tested-oses.azure_publisher }"
-  image_sku       = "${length(var.image) > 0 ? lookup(var.image, "sku", "") : module.dcos-tested-oses.azure_sku }"
-  image_version   = "${length(var.image) > 0 ? lookup(var.image, "version", "") : module.dcos-tested-oses.azure_version }"
-  image_offer     = "${length(var.image) > 0 ? lookup(var.image, "offer", "") : module.dcos-tested-oses.azure_offer }"
+  image_publisher = "${length(var.image) > 0 ? lookup(var.image, "publisher", "") : module.dcos-tested-oses.azure_publisher}"
+  image_sku       = "${length(var.image) > 0 ? lookup(var.image, "sku", "") : module.dcos-tested-oses.azure_sku}"
+  image_version   = "${length(var.image) > 0 ? lookup(var.image, "version", "") : module.dcos-tested-oses.azure_version}"
+  image_offer     = "${length(var.image) > 0 ? lookup(var.image, "offer", "") : module.dcos-tested-oses.azure_offer}"
 }
 
 # instance Node
@@ -71,7 +71,7 @@ resource "azurerm_public_ip" "instance_public_ip" {
   domain_name_label   = "${format(var.hostname_format, count.index + 1, local.cluster_name)}"
 
   tags = "${merge(var.tags, map("Name", format(var.hostname_format, (count.index + 1), var.location, local.cluster_name),
-                                "Cluster", local.cluster_name))}"
+  "Cluster", local.cluster_name))}"
 }
 
 # Create an availability set
@@ -101,7 +101,7 @@ resource "azurerm_network_interface" "instance_nic" {
   }
 
   tags = "${merge(var.tags, map("Name", format(var.hostname_format, (count.index + 1), var.location, local.cluster_name),
-                                "Cluster", local.cluster_name))}"
+  "Cluster", local.cluster_name))}"
 }
 
 resource "azurerm_virtual_machine" "instance" {
@@ -155,5 +155,5 @@ resource "azurerm_virtual_machine" "instance" {
   }
 
   tags = "${merge(var.tags, map("Name", format(var.hostname_format, (count.index + 1), var.location, local.cluster_name),
-                                "Cluster", local.cluster_name))}"
+  "Cluster", local.cluster_name))}"
 }
