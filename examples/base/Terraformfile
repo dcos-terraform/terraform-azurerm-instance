@@ -1,0 +1,6 @@
+{
+  "dcos-terraform/tested-oses/azurerm": {
+    "source": "git::https://github.com/dcos-terraform/terraform-azurerm-tested-oses.git?ref=support/0.3.x"
+    ,"set_version": "0.3.0"
+  }
+}
