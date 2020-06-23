@@ -25,6 +25,8 @@
  */
 
 provider "azurerm" {
+  version = "~> 2.0"
+  features {}
 }
 
 locals {
@@ -97,11 +99,10 @@ resource "azurerm_availability_set" "instance_av_set" {
 
 # Instance NICs
 resource "azurerm_network_interface" "instance_nic" {
-  name                      = "${format(var.hostname_format, count.index + 1, local.cluster_name)}-nic"
-  location                  = var.location
-  resource_group_name       = var.resource_group_name
-  network_security_group_id = var.network_security_group_id
-  count                     = var.num
+  name                = "${format(var.hostname_format, count.index + 1, local.cluster_name)}-nic"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  count               = var.num
 
   ip_configuration {
     name                          = "${format(var.hostname_format, count.index + 1, local.cluster_name)}-ipConfig"
@@ -121,6 +122,12 @@ resource "azurerm_network_interface" "instance_nic" {
       "Cluster" = local.cluster_name
     },
   )
+}
+
+resource "azurerm_network_interface_security_group_association" "instance_nic" {
+  count                     = var.num
+  network_interface_id      = element(azurerm_network_interface.instance_nic.*.id, count.index)
+  network_security_group_id = var.network_security_group_id
 }
 
 resource "azurerm_virtual_machine" "instance" {
